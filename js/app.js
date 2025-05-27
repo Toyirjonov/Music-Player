@@ -26,7 +26,7 @@ const musics = [
 ];
 
 let currentMusic = 0;
-let likedTracks = new Set(); // Для отслеживания понравившихся треков
+let likedTracks = new Set(); 
 
 function changeMusic(currentMusic) {
   cover.src = `./images/${musics[currentMusic]}.png`;
