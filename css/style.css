@@ -54,16 +54,27 @@ body {
   margin-bottom: 20px;
 }
 
+.track-details {
+  text-align: center;
+  flex: 1;
+}
+
 #track-title {
   font-size: 24px;
   font-weight: 700;
   color: #ffffff;
   margin: 0;
-  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  flex: 1;
+}
+
+#artist {
+  padding-top: 20px;
+  margin: 0;
+  font-size: 14px;
+  color: #b3b3b3;
+  font-weight: 400;
 }
 
 #cover {
@@ -180,6 +191,7 @@ button:active {
   background: transparent;
   border: none;
   padding: 5px;
+  padding-bottom: 40px;
 }
 
 #like:hover {
@@ -188,6 +200,22 @@ button:active {
 
 #like.active {
   color: #ff0000;
+}
+
+#loop {
+  font-size: 24px;
+}
+
+#loop.active {
+  color: #1db954;
+}
+
+#random {
+  font-size: 24px;
+}
+
+#random.active {
+  color: #1db954;
 }
 
 .volume-control {

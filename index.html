@@ -1,4 +1,4 @@
-<!DOCTYPE ,未来html>
+<!DOCTYPE html>
 <html lang="uz">
   <head>
     <meta charset="UTF-8" />
@@ -19,7 +19,10 @@
   <body>
     <div class="container">
       <div class="track-info">
-        <h2 id="track-title"></h2>
+        <div class="track-details">
+          <h2 id="track-title"></h2>
+          <p id="artist"></p>
+        </div>
         <button id="like" title="Like this track">
           <i class="fa-solid fa-heart"></i>
         </button>
@@ -38,9 +41,11 @@
       </div>
       <div class="controls">
         <audio src="./music/Самый_пьяный_округ_в_мире.mp3"></audio>
+        <button id="random"><i class="fa-solid fa-shuffle"></i></button>
         <button id="backward"><i class="fa-solid fa-backward"></i></button>
         <button id="play"><i class="fa-solid fa-play"></i></button>
         <button id="forward"><i class="fa-solid fa-forward"></i></button>
+        <button id="loop"><i class="fa-solid fa-repeat"></i></button>
       </div>
       <div class="volume-control">
         <input id="voice" type="range" min="0" max="100" step="1" value="50" />

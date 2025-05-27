@@ -9,31 +9,39 @@ const cover = document.querySelector("#cover");
 const progress = document.querySelector(".progress");
 const progressContainer = document.querySelector(".progress-container");
 const trackTitle = document.querySelector("#track-title");
+const artist = document.querySelector("#artist");
 const currentTimeDisplay = document.querySelector("#current-time");
 const durationDisplay = document.querySelector("#duration");
 const likeBtn = document.querySelector("#like");
+const loopBtn = document.querySelector("#loop");
+const randomBtn = document.querySelector("#random");
 
 const musics = [
-  "Самый_пьяный_округ_в_мире",
-  "Shazam - MACAN",
-  "Как je - MACAN, Kiliana",
-  "MACAN - L",
-  "Привыкаю - MACAN, A.V.G",
-  "ASPHALT 8 - MACAN",
-  "Спой - A.V.G, MACAN",
-  "Кино - MACAN",
-  "За всех - MACAN",
+  { title: "Самый пьяный округ в мире", artist: "MACAN" },
+  { title: "Shazam", artist: "MACAN" },
+  { title: "Как je", artist: "MACAN, Kiliana" },
+  { title: "L", artist: "MACAN" },
+  { title: "Привыкаю", artist: "MACAN, A.V.G" },
+  { title: "ASPHALT 8", artist: "MACAN" },
+  { title: "Спой", artist: "A.V.G, MACAN" },
+  { title: "Кино", artist: "MACAN" },
+  { title: "За всех", artist: "MACAN" },
 ];
 
 let currentMusic = 0;
-let likedTracks = new Set(); 
+let likedTracks = new Set();
+let isLooping = false;
 
 function changeMusic(currentMusic) {
-  cover.src = `./images/${musics[currentMusic]}.png`;
-  cover.alt = musics[currentMusic];
-  audio.src = `./music/${musics[currentMusic]}.mp3`;
-  trackTitle.textContent = musics[currentMusic];
-  likeBtn.classList.toggle("active", likedTracks.has(musics[currentMusic]));
+  cover.src = `./images/${musics[currentMusic].title}.png`;
+  cover.alt = musics[currentMusic].title;
+  audio.src = `./music/${musics[currentMusic].title}.mp3`;
+  trackTitle.textContent = musics[currentMusic].title;
+  artist.textContent = musics[currentMusic].artist;
+  likeBtn.classList.toggle(
+    "active",
+    likedTracks.has(musics[currentMusic].title)
+  );
 }
 
 changeMusic(currentMusic);
@@ -72,7 +80,7 @@ forward.addEventListener("click", () => {
 });
 
 backward.addEventListener("click", () => {
-  if (currentMusic != 0) {
+  if (currentMusic !== 0) {
     currentMusic--;
   } else {
     currentMusic = musics.length - 1;
@@ -107,7 +115,10 @@ audio.addEventListener("loadedmetadata", () => {
 });
 
 audio.addEventListener("ended", () => {
-  if (musics.length - 1 > currentMusic) {
+  if (isLooping) {
+    audio.currentTime = 0;
+    play();
+  } else if (musics.length - 1 > currentMusic) {
     currentMusic++;
   } else {
     currentMusic = 0;
@@ -124,11 +135,27 @@ progressContainer.addEventListener("click", (e) => {
 });
 
 likeBtn.addEventListener("click", () => {
-  const currentTrack = musics[currentMusic];
+  const currentTrack = musics[currentMusic].title;
   if (likedTracks.has(currentTrack)) {
     likedTracks.delete(currentTrack);
   } else {
     likedTracks.add(currentTrack);
   }
   likeBtn.classList.toggle("active");
+});
+
+loopBtn.addEventListener("click", () => {
+  isLooping = !isLooping;
+  audio.loop = isLooping;
+  loopBtn.classList.toggle("active", isLooping);
+});
+
+randomBtn.addEventListener("click", () => {
+  let newMusic;
+  do {
+    newMusic = Math.floor(Math.random() * musics.length);
+  } while (newMusic === currentMusic);
+  currentMusic = newMusic;
+  changeMusic(currentMusic);
+  play();
 });
